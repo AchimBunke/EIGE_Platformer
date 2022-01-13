@@ -15,7 +15,7 @@ public class PlayerBehaviour : MonoBehaviour
         public float runVelocity = 12;
         public float rotateVelocity = 100;
         public float jumpVelocity = 8;
-        public float distanceToGround = 1.3f;
+        public float distanceToGround = 3.0f;
         //Physic simulation layer. Look at Grounded() for more
         public LayerMask ground;
     }
@@ -67,7 +67,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         Run();
         Jump();
-        playerRigidbody.AddForce(Vector3.down * 10);
+        //playerRigidbody.AddForce(Vector3.down * 10);
     }
 
     // Saves user input for later use
@@ -131,9 +131,19 @@ public class PlayerBehaviour : MonoBehaviour
     // Must set up Grounded LayerMask in the editor for Grounded() to work.
     void Jump()
     {
+        if(jumpInput != 0 && !Grounded())
+        {
+            RaycastHit hit;
+            Physics.Raycast(
+           transform.position,
+           Vector3.down,
+           out hit,
+           moveSettings.distanceToGround,
+           moveSettings.ground);
+        }
         //check if there is jump input and if the player
         //is grounded as in not already jumping
-        if ((jumpInput != 0))
+        if ((jumpInput != 0) && Grounded())
         {
             //create a new vector3, change y value to preveously
             //defined jumpVelocity, dont alter the other values,
@@ -164,7 +174,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Spawn();
         }
-        if (other.gameObject.CompareTag("Checkpont"))
+        if (other.gameObject.CompareTag("Checkpoint"))
         {
 
         }

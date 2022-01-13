@@ -5,58 +5,82 @@ using UnityEngine;
 public class MovingPlatform : MonoBehaviour
 {
 
-    public Transform[] trackingPointArray;
+    public Transform[] points;
+    public float speed;
+    public int nextPointIndex = 0;
+    public float restingTime = 2;
+    public float tolerance;
+    public bool automatic = true;
 
-    [SerializeField] private float speed;
-    private Vector3 tmpTarget;
-    private int targetIndex;
-
+    private Transform currentTarget;
+    private float rest_start;
 
     // Start is called before the first frame update
     void Start()
     {
-        //sets initial platform position to position of first tracking point
-        transform.position = trackingPointArray[0].position;
-        //sets next target index on the second target point
-        //(target array always must have at least 2 tracking points)
-        targetIndex = 1;
-        //setting target Vec3 for next destination
-        tmpTarget = trackingPointArray[targetIndex].position;
+        if (points.Length > 0)
+            if (nextPointIndex < points.Length)
+                currentTarget = points[nextPointIndex];
     }
 
-    void Update()
+    // Update is called once per frame
+    void FixedUpdate()
     {
-        //platform speed
-        float amtToMove = speed * Time.deltaTime;
-        //platform travel direction
-        Vector3 direction = (tmpTarget - transform.position).normalized;
-        //apply movement
-        transform.Translate(direction * amtToMove);
-        //change target once closeness threshold is met
-        if (Vector3.Distance(transform.position, tmpTarget) <= 0.1f)
+        if (currentTarget != null && transform.position != currentTarget.position)
+            MovePlatform();
+        else
+            UpdateTarget();
+    }
+
+    void MovePlatform()
+    {
+        Vector3 dir = currentTarget.position - transform.position;
+        transform.position += dir.normalized * speed * Time.deltaTime;
+        // snap to position
+        if (dir.magnitude < tolerance)
         {
-            targetIndex = (++targetIndex) % trackingPointArray.Length;
-            tmpTarget = trackingPointArray[targetIndex].position;
+            transform.position = currentTarget.position;
+            rest_start = Time.time;
+        }
+    }
+    void UpdateTarget()
+    {
+        if (automatic)
+        {
+            if (Time.time - rest_start > restingTime)
+            {
+                NextTarget();
+            }
         }
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+    void NextTarget()
     {
-        if (collision.collider.CompareTag("Player"))
+        if (transform.position != currentTarget?.position)
+            return;
+        nextPointIndex++;
+        if (nextPointIndex >= points.Length)
         {
-            collision.transform.SetParent(transform);
+            nextPointIndex = 0;
+        }
+        currentTarget = points[nextPointIndex];
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            other.transform.parent = transform;
+            if (!automatic)
+                NextTarget();
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (other.tag == "Player")
         {
-            collision.transform.SetParent(null);
+            other.transform.parent = null;
         }
     }
-
-
-
 }
