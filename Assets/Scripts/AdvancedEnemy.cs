@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AdvancedEnemy : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class AdvancedEnemy : MonoBehaviour
     [SerializeField] private float distanceThreshold;
     [SerializeField] private float chaseEvadeDistance;
     [SerializeField] private float sightDistance;
+    private NavMeshAgent agent;
 
 
     public enum Behaviour
@@ -21,13 +24,17 @@ public class AdvancedEnemy : MonoBehaviour
         Intercept,
         PatternMovement,
         ChasePatternMovement,
-        Hide
+        Hide,
+        PatternMovementNavMesh
     }
     public Behaviour behaviour;
 
     void Awake()
     {
         enemyRigidbody = GetComponent<Rigidbody>();
+        agent = GetComponent<NavMeshAgent>();
+        agent.autoBraking = false;
+        agent.destination = wayPoints[currentWayPoint].transform.position;
     }
 
     private void Update()
@@ -68,12 +75,24 @@ public class AdvancedEnemy : MonoBehaviour
                     PatternMovement();
                 }
                 break;
+            case Behaviour.PatternMovementNavMesh:
+                if (!agent.pathPending && agent.remainingDistance < 0.5f)
+                {
+                    NavigateToNextPoint();
+                }
+                break;
             default:
                 break;
         }
     }
 
-        private void ChaseLineOfSight(Vector3 targetPosition, float Speed)
+    private void NavigateToNextPoint()
+    {
+        currentWayPoint = (currentWayPoint + 1) % wayPoints.Length;
+        agent.destination = wayPoints[currentWayPoint].transform.position;
+    }
+
+    private void ChaseLineOfSight(Vector3 targetPosition, float Speed)
         {
             Vector3 direction = targetPosition - transform.position;
             direction.Normalize();

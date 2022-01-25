@@ -6,8 +6,7 @@ using UnityEditor.SceneManagement;
 
 public class OpenScene : MonoBehaviour
 {
-    [MenuItem("OpenScene/Start Screen")]
-
+    [MenuItem("OpenScene/Start Screen %0")]
     static void StartScreen()
     {
         EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
