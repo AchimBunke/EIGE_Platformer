@@ -11,24 +11,24 @@ public class Projectile : MonoBehaviour
     private float alivetime = 0;
 
 
-    void Update()
+    public virtual void Update()
     {
         alivetime += Time.deltaTime;
         if (alivetime > stayAlive)
             Destroy(gameObject);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (hitSound != null)
+        if (other.tag == "Player")
         {
-            hitSound.transform.parent = transform.parent;
-            hitSound.Play();
-            Destroy(hitSound, hitSound.clip.length);
-        }
-        if (collision.gameObject.tag == "Player")
-        {
-            Destroy(gameObject);
+            if (hitSound != null)
+            {
+                hitSound.Play();
+
+                Destroy(gameObject, hitSound.clip.length);
+
+            }
         }
     }
 
