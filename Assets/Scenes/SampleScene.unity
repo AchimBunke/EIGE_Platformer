@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.02728294, g: 0.8298153, b: 1.1570034, a: 1}
+  m_IndirectSpecularColor: {r: 0.02728292, g: 0.82981557, b: 1.1570022, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -593,7 +593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1064166095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.36, y: -10, z: 0}
+  m_LocalPosition: {x: 0.36, y: -9.85, z: 0}
   m_LocalScale: {x: 200, y: 0, z: 200}
   m_Children: []
   m_Father: {fileID: 0}
@@ -742,7 +742,7 @@ MonoBehaviour:
     runVelocity: 12
     rotateVelocity: 100
     jumpVelocity: 12
-    distanceToGround: 3
+    distanceToGround: 6
     ground:
       serializedVersion: 2
       m_Bits: 8
@@ -766,6 +766,7 @@ GameObject:
   - component: {fileID: 1133414270}
   - component: {fileID: 1133414269}
   - component: {fileID: 1133414268}
+  - component: {fileID: 1133414274}
   m_Layer: 0
   m_Name: AdvancedEnemy
   m_TagString: Untagged
@@ -880,12 +881,34 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1133414267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.767208, y: 0.795805, z: 3.663189}
+  m_LocalPosition: {x: 5.767208, y: 2, z: 3.663189}
   m_LocalScale: {x: 2.4587, y: 2.4587, z: 2.4587}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!195 &1133414274
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1133414267}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.49999994
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.9999998
+  m_BaseOffset: 0.9999999
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!1 &1151377753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1197,7 +1220,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 84ab9f9f453754af3b63753bae3afdef, type: 2}
+  - {fileID: 2100000, guid: 196a83e4fac7a644ebc189706f6c2082, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
