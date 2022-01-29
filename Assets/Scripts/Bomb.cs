@@ -19,7 +19,7 @@ public class Bomb : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.velocity = new Vector3(speed, rb.velocity.y, 0);
+        rb.velocity = new Vector3(0, rb.velocity.y, speed);
     }
 
     void OnTriggerEnter(Collider other)
