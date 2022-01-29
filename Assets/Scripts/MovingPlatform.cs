@@ -70,7 +70,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.transform.parent = transform;
+            other.transform.parent.parent = transform;
             if (!automatic)
                 NextTarget();
         }
@@ -80,7 +80,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.transform.parent = null;
+            other.transform.parent.parent = null;
         }
     }
 }
