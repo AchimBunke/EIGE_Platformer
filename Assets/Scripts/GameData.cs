@@ -1,5 +1,7 @@
 
 
+using System;
+
 public class GameData
 {
     private static GameData instance;
@@ -32,7 +34,7 @@ public class GameData
         }
         set
         {
-            score = value;
+            score = Math.Max(0,value);
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -20,8 +21,22 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     public bool isDoingAFlip;
 
+    bool respawn = false;
+    int i = 0;
+
     void Update()
     {
+        if (respawn)
+        {
+            i++;
+
+            if (i > 10)
+            {
+                respawn = false;
+                i = 0;
+            }else
+                return;
+        }
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
         if (isGrounded) isDoingAFlip = false;
 
@@ -59,5 +74,25 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "DeathZone")
+        {
+            GameData.Instance.Score--;
+            transform.position = GameObject.FindGameObjectWithTag("Checkpoint").transform.position;
+            respawn = true;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+        if (other.tag == "End")
+        {
+            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
+            {
+                SceneManager.LoadScene(nextSceneIndex);
+            }
+            else
+                SceneManager.LoadScene(0);
+        }
     }
 }
