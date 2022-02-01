@@ -79,13 +79,14 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.tag == "DeathZone")
         {
-            GameData.Instance.Score--;
+            GameData.Instance.Score = 0;
             transform.position = GameObject.FindGameObjectWithTag("Checkpoint").transform.position;
             respawn = true;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
         if (other.tag == "End")
         {
+            GameData.Instance.Score = 0;
             int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
             if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
             {

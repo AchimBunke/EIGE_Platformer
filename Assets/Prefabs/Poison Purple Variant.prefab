@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 110512, guid: b0fddd132a921e449b42a01f6f4315b3, type: 3}
       propertyPath: m_Name
-      value: Poison Purple
+      value: Poison Purple Variant
       objectReference: {fileID: 0}
     - target: {fileID: 410512, guid: b0fddd132a921e449b42a01f6f4315b3, type: 3}
       propertyPath: m_RootOrder
@@ -74,19 +74,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 110512, guid: b0fddd132a921e449b42a01f6f4315b3, type: 3}
   m_PrefabInstance: {fileID: 2532040770150574090}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &465902994682296087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2532040770150467514}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93c81cfc8f0fa43d88eef3346f35f60f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitSound: {fileID: 1173663425365871670}
 --- !u!65 &6320942476170975801
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -111,7 +98,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 69445cce8a60f47a59a639a565185c15, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -196,3 +183,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &465902994682296087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2532040770150467514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c81cfc8f0fa43d88eef3346f35f60f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitSound: {fileID: 1173663425365871670}
