@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Laser : MonoBehaviour
+public class Poison : MonoBehaviour
 {
     public AudioSource hitSound;
 
@@ -11,10 +11,10 @@ public class Laser : MonoBehaviour
         if (other.tag == "Player")
         {
             if (hitSound != null)
+            {
                 hitSound.Play();
-            GameData.Instance.Score--;
-
+                GameData.Instance.Score--;
+            }
         }
     }
-
 }
