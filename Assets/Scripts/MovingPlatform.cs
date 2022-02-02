@@ -15,8 +15,6 @@ public class MovingPlatform : MonoBehaviour
     private Transform currentTarget;
     private float rest_start;
 
-    private bool activated = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -43,8 +41,6 @@ public class MovingPlatform : MonoBehaviour
         {
             transform.position = currentTarget.position;
             rest_start = Time.time;
-            if (currentTarget == points[0])
-                activated = false;
         }
     }
     void UpdateTarget()
@@ -52,13 +48,6 @@ public class MovingPlatform : MonoBehaviour
         if (automatic)
         {
             if (Time.time - rest_start > restingTime)
-            {
-                NextTarget();
-            }
-        }
-        else
-        {
-            if (activated && Time.time - rest_start > restingTime)
             {
                 NextTarget();
             }
@@ -81,8 +70,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            activated = true;
-            other.transform.parent.parent = transform;
+            other.transform.parent = transform;
             if (!automatic)
                 NextTarget();
         }
@@ -92,7 +80,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            other.transform.parent.parent = null;
+            other.transform.parent = null;
         }
     }
 }

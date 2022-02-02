@@ -12,7 +12,6 @@ public class Laser : MonoBehaviour
         {
             if (hitSound != null)
                 hitSound.Play();
-            GameData.Instance.Score--;
 
         }
     }
