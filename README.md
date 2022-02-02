@@ -15,3 +15,4 @@ https://github.com/AchimBunke/EIGE_Platformer
 - Particles: https://assetstore.unity.com/packages/vfx/particles/spells/particle-ribbon-42866
 - Skybox: https://assetstore.unity.com/packages/2d/textures-materials/sky/skybox-volume-2-nebula-3392
 - Audio: https://assetstore.unity.com/packages/audio/sound-fx/weapons/ultra-sci-fi-game-audio-weapons-pack-vol-1-113047
+- Materials: https://assetstore.unity.com/packages/2d/textures-materials/stylized-lava-materials-180943
