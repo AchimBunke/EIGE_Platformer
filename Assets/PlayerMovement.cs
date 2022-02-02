@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     
     private bool firstRotationFinished = false;
     private bool secondRotationFinished = false;
+    private Quaternion finalFlipRotation;
 
     bool respawn = false;
     int i = 0;
@@ -74,14 +75,15 @@ public class PlayerMovement : MonoBehaviour
 
 
         //DOUBLE JUMP
-        if (Input.GetButtonDown("Jump") && velocity.y > 0.5 && !hasJumpedTwice)
+        if (Input.GetButtonDown("Jump") && velocity.y > 0.5 && !hasJumpedTwice && !camera.locked)
         {
             //JUMP
             velocity.y += Mathf.Sqrt(jumpHeight / 2f * -2f * gravity);
             hasJumpedTwice = true;
             Debug.Log("Rotation wird aktiviert");
             camera.locked = true;
-            turnSpeed = 5.0f * Time.deltaTime;
+            finalFlipRotation = camera.gameObject.transform.localRotation;
+            turnSpeed = 3.0f * Time.deltaTime;
             firstRotationFinished = false;
             secondRotationFinished = false;
         }
@@ -101,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
                             180f * Mathf.Sign(camera.gameObject.transform.localRotation.x),
                             camera.gameObject.transform.localRotation.y,
                             camera.gameObject.transform.localRotation.z)),
-                        turnSpeed
+                        turnSpeed * 1.7f
                     );
                 if (Mathf.Abs(Mathf.Round(camera.gameObject.transform.localRotation.x * 100)) >= 96)
                 {
@@ -118,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
                             camera.gameObject.transform.localRotation.z)),
                         turnSpeed * 1.5f
                     );
-                if (Mathf.Abs(Mathf.Round(camera.gameObject.transform.localRotation.x * 100)) < 50)
+                if (Mathf.Abs(Mathf.Round(camera.gameObject.transform.localRotation.x * 100)) < 60)
                 {
                     secondRotationFinished = true;
                 }
@@ -127,10 +129,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 Debug.Log("Third Rotation");
                             camera.gameObject.transform.localRotation =
-                                Quaternion.Lerp(camera.gameObject.transform.localRotation, Quaternion.Euler(new Vector3(
-                                        0f * -Mathf.Sign(camera.gameObject.transform.localRotation.x),
-                                        camera.gameObject.transform.localRotation.y,
-                                        camera.gameObject.transform.localRotation.z)),
+                                Quaternion.Lerp(camera.gameObject.transform.localRotation, finalFlipRotation,
                                     turnSpeed
                                 );
             }
