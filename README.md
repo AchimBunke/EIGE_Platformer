@@ -2,6 +2,10 @@
 
 Ist ein 3D jump'n run mit dem Ziel von der Spawnposition zum Portal zu kommen und dabei möglichst viele Punkte zu sammeln.
 
+# Github
+https://github.com/AchimBunke/EIGE_Platformer
+
+
 ## Steuerung
 - wasd
 - space (am boden) -> springen
