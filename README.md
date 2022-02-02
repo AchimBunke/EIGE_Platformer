@@ -10,6 +10,7 @@ https://github.com/AchimBunke/EIGE_Platformer
 - wasd
 - space (am boden) -> springen
 - space (in der luft) -> doppelsprung (backflip/frontflip)
+- escape -> spiel beenden
 
 # Ressourcen
 - Particles: https://assetstore.unity.com/packages/vfx/particles/spells/particle-ribbon-42866
