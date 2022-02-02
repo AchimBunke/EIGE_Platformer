@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6046847221265234245}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 6046847221265234246}
-  camera: {fileID: 6046847222966331547}
+  camera: {fileID: 6046847222966331551}
   speed: 10
   gravity: -9.81
   jumpHeight: 2.5
@@ -106,7 +106,6 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  isDoingAFlip: 0
 --- !u!54 &6046847221265234245
 Rigidbody:
   m_ObjectHideFlags: 0

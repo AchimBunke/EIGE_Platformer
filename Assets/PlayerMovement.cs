@@ -28,8 +28,22 @@ public class PlayerMovement : MonoBehaviour
     private bool firstRotationFinished = false;
     private bool secondRotationFinished = false;
 
+    bool respawn = false;
+    int i = 0;
+
     void Update()
     {
+        if (respawn)
+        {
+            i++;
+
+            if (i > 10)
+            {
+                respawn = false;
+                i = 0;
+            }else
+                return;
+        }
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
