@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     public CharacterController controller;
-    public GameObject camera;
+    public LookAround camera;
 
     public float speed = 10f;
     public float gravity = -9.81f;
@@ -15,20 +14,30 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    private bool hasJumpedTwice;
+    bool isGrounded;
+    private float turnSpeed;
+
+    private float sprintFactor = 1;
 
     Vector3 velocity;
-    bool isGrounded;
-    public bool isDoingAFlip;
+    
+    
+    
+    private bool firstRotationFinished = false;
+    private bool secondRotationFinished = false;
 
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-        if (isGrounded) isDoingAFlip = false;
 
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f;
+            velocity.y = 0;
+            camera.locked = false;
+            hasJumpedTwice = false;
         }
+        
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -38,26 +47,87 @@ public class PlayerMovement : MonoBehaviour
         {
             move /= move.magnitude;
         }
-        controller.Move(move * speed * Time.deltaTime);
         
-        if (Input.GetButtonDown("Jump") && velocity.y > 3)
+        controller.Move(move * speed * Time.deltaTime * sprintFactor);
+        
+        //SPRINT
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            //Perform Double Jump + Looping
-            //controller.transform.Rotate(controller.transform.right, 180);
-            isDoingAFlip = true;
-            camera.transform.localRotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z + 360.0f), 0.1f);
+            Debug.Log("Sprint");
+            controller.Move(move * speed * Time.deltaTime * sprintFactor);
+        }
+
+
+        //DOUBLE JUMP
+        if (Input.GetButtonDown("Jump") && velocity.y > 0.5 && !hasJumpedTwice)
+        {
+            //JUMP
+            velocity.y += Mathf.Sqrt(jumpHeight / 2f * -2f * gravity);
+            hasJumpedTwice = true;
+            Debug.Log("Rotation wird aktiviert");
+            camera.locked = true;
+            turnSpeed = 5.0f * Time.deltaTime;
+            firstRotationFinished = false;
+            secondRotationFinished = false;
+        }
+
+
+        if (camera.locked)
+        {
+            Debug.Log(firstRotationFinished);
+            Debug.Log(secondRotationFinished);
+            Debug.Log(camera.gameObject.transform.localRotation.x * 100);
+            Debug.Log("Rotiere gerade");
+            if (!firstRotationFinished)
+            {
+                Debug.Log("First Rotation");
+                camera.gameObject.transform.localRotation =
+                    Quaternion.Lerp(camera.gameObject.transform.localRotation, Quaternion.Euler(new Vector3(
+                            180f * Mathf.Sign(camera.gameObject.transform.localRotation.x),
+                            camera.gameObject.transform.localRotation.y,
+                            camera.gameObject.transform.localRotation.z)),
+                        turnSpeed
+                    );
+                if (Mathf.Abs(Mathf.Round(camera.gameObject.transform.localRotation.x * 100)) >= 96)
+                {
+                    firstRotationFinished = true;
+                }
+            }
+            else if (firstRotationFinished && !secondRotationFinished)
+            {
+                Debug.Log("Second Rotation");
+                camera.gameObject.transform.localRotation =
+                    Quaternion.Lerp(camera.gameObject.transform.localRotation, Quaternion.Euler(new Vector3(
+                        50f * -Mathf.Sign(camera.gameObject.transform.localRotation.x),
+                            camera.gameObject.transform.localRotation.y,
+                            camera.gameObject.transform.localRotation.z)),
+                        turnSpeed * 1.5f
+                    );
+                if (Mathf.Abs(Mathf.Round(camera.gameObject.transform.localRotation.x * 100)) < 50)
+                {
+                    secondRotationFinished = true;
+                }
+            }
+            else
+            {
+                Debug.Log("Third Rotation");
+                            camera.gameObject.transform.localRotation =
+                                Quaternion.Lerp(camera.gameObject.transform.localRotation, Quaternion.Euler(new Vector3(
+                                        0f * -Mathf.Sign(camera.gameObject.transform.localRotation.x),
+                                        camera.gameObject.transform.localRotation.y,
+                                        camera.gameObject.transform.localRotation.z)),
+                                    turnSpeed
+                                );
+            }
         }
 
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
-
-        
     }
 }
