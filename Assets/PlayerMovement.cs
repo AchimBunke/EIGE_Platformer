@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -129,5 +130,26 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "DeathZone")
+        {
+            GameData.Instance.Score = 0;
+            transform.position = GameObject.FindGameObjectWithTag("Checkpoint").transform.position;
+            respawn = true;
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+        if (other.tag == "End")
+        {
+            GameData.Instance.Score = 0;
+            int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
+            {
+                SceneManager.LoadScene(nextSceneIndex);
+            }
+            else
+                SceneManager.LoadScene(0);
+        }
     }
 }
