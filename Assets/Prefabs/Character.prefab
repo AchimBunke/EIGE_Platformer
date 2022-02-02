@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 6046847221265234245}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,10 +134,9 @@ GameObject:
   - component: {fileID: 6046847221867640841}
   - component: {fileID: 6046847221867640847}
   - component: {fileID: 6046847221867640846}
-  - component: {fileID: 5530678035013777736}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -205,20 +204,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &5530678035013777736
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6046847221867640840}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: -0.00000047683716}
 --- !u!1 &6046847222966331547
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,7 +216,7 @@ GameObject:
   - component: {fileID: 6046847222966331545}
   - component: {fileID: 6046847222966331544}
   - component: {fileID: 6046847222966331551}
-  - component: {fileID: 7811463221938738401}
+  - component: {fileID: 1083354897688002749}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -319,7 +304,8 @@ MonoBehaviour:
   mouseSensitivity: 10
   playerBody: {fileID: 6046847221265234247}
   controller: {fileID: 6046847221265234241}
---- !u!45 &7811463221938738401
+  locked: 0
+--- !u!45 &1083354897688002749
 Skybox:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,4 +313,4 @@ Skybox:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6046847222966331547}
   m_Enabled: 1
-  m_CustomSkybox: {fileID: 2100000, guid: 7ba8162d09542e34b9a72bb543447494, type: 2}
+  m_CustomSkybox: {fileID: 2100000, guid: 85cf0b004bc4a654b9e501efcce47902, type: 2}
