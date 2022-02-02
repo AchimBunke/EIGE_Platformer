@@ -77,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         //DOUBLE JUMP
-        if (Input.GetButtonDown("Jump") && velocity.y > 0.5 && !hasJumpedTwice && !camera.locked)
+        if (Input.GetButtonDown("Jump") && velocity.y > 0.2 && !hasJumpedTwice && !camera.locked)
         {
             //JUMP
             velocity.y += Mathf.Sqrt(jumpHeight / 2f * -2f * gravity);

@@ -112,7 +112,7 @@ MonoBehaviour:
   fallSpeed: 30
   fallDistance: 100
   activationTime: 3
-  respawn: 0
+  respawn: 1
   respawnDelay: 5
 --- !u!65 &1314858319172535869
 BoxCollider:
