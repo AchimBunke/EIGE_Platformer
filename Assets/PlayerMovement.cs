@@ -28,8 +28,23 @@ public class PlayerMovement : MonoBehaviour
     private bool firstRotationFinished = false;
     private bool secondRotationFinished = false;
 
+    bool respawn = false;
+    int i = 0;
+
     void Update()
     {
+        if (respawn)
+        {
+            i++;
+
+            if (i > 10)
+            {
+                respawn = false;
+                i = 0;
+            }
+            else
+                return;
+        }
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -131,18 +146,18 @@ public class PlayerMovement : MonoBehaviour
 
         controller.Move(velocity * Time.deltaTime);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "DeathZone")
         {
-            GameData.Instance.Score = 0;
+            GameData.Instance.Score--;
             transform.position = GameObject.FindGameObjectWithTag("Checkpoint").transform.position;
             respawn = true;
             GetComponent<Rigidbody>().velocity = Vector3.zero;
         }
         if (other.tag == "End")
         {
-            GameData.Instance.Score = 0;
             int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
             if (SceneManager.sceneCountInBuildSettings > nextSceneIndex)
             {
