@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 respawn = false;
                 i = 0;
+
             }
             else
                 return;
